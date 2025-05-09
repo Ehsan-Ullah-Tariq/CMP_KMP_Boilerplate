@@ -9,7 +9,7 @@ import presentation.ui.theme.MyAppTheme
 @Preview
 fun App() {
     MyAppTheme(true) {
-        var showSplashScreen by remember { mutableStateOf(false) }
+        var showSplashScreen by remember { mutableStateOf(true) }
         if (showSplashScreen) {
             SplashScreen(onNavigateToHome = { showSplashScreen = false })
         } else {

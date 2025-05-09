@@ -43,8 +43,6 @@ kotlin {
             implementation(libs.ktor.client.android)
             implementation(libs.koin.android)
             implementation(libs.android.driver)
-            implementation(libs.androidx.media3.exoplayer)
-            implementation(libs.androidx.media3.ui)
         }
 
         commonMain.dependencies {

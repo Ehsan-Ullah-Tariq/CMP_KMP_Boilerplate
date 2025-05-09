@@ -32,7 +32,12 @@ fun BottomBar() {
             NavigationBar(
                 modifier = Modifier
                     .height(65.dp)
-                    .clip(RoundedCornerShape(15.dp, 15.dp, 0.dp, 0.dp))
+                    .clip(RoundedCornerShape(
+                        topStart = 15.dp,
+                        topEnd = 15.dp,
+                        bottomEnd = 0.dp,
+                        bottomStart = 0.dp
+                    ))
                     .background(Color.Black),
             ) {
                 BottomNav(navController = navController)
@@ -59,7 +64,6 @@ fun BottomNav(navController: NavController) {
                         painter = painterResource(resource = if (currentRoute?.hierarchy?.any { it.route == item.route } == true) item.selectedIcon else item.unSelectedIcon),
                         contentDescription = item.label,
                         modifier = Modifier.size(20.dp)
-                        //tint = Color.Gray
                     )
                 },
                 label = {
