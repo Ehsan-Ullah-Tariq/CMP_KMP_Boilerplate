@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.NavigationBar
@@ -43,6 +44,7 @@ fun BottomBar() {
                 BottomNav(navController = navController)
             }
         },
+        modifier = Modifier.systemBarsPadding()
     ) { padding ->
         MainScreenNavigation(navController,padding)
     }
