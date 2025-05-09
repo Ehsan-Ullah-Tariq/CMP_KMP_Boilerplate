@@ -1,21 +1,54 @@
-This is a Kotlin Multiplatform project targeting Android, iOS, Web, Desktop.
+# 🚀 Kotlin Multiplatform + Compose Multiplatform Starter Template
 
-* `/composeApp` is for code that will be shared across your Compose Multiplatform applications.
-  It contains several subfolders:
-  - `commonMain` is for code that’s common for all targets.
-  - Other folders are for Kotlin code that will be compiled for only the platform indicated in the folder name.
-    For example, if you want to use Apple’s CoreCrypto for the iOS part of your Kotlin app,
-    `iosMain` would be the right folder for such calls.
+This repository is a **ready-to-use starter template** for building modern cross-platform apps using **Kotlin Multiplatform (KMP)** and **Compose Multiplatform (CMP)**.  
+It's designed to help developers **kickstart their projects quickly** with a clean architecture and all the essential tools and libraries pre-configured.
 
-* `/iosApp` contains iOS applications. Even if you’re sharing your UI with Compose Multiplatform, 
-  you need this entry point for your iOS app. This is also where you should add SwiftUI code for your project.
+---
 
+## ✅ What’s Included
 
-Learn more about [Kotlin Multiplatform](https://www.jetbrains.com/help/kotlin-multiplatform-dev/get-started.html),
-[Compose Multiplatform](https://github.com/JetBrains/compose-multiplatform/#compose-multiplatform),
-[Kotlin/Wasm](https://kotl.in/wasm/)…
+### 🧱 **MVVM Architecture**  
+Clean and scalable architecture using **MVVM** with **Use Cases**, **Repository pattern**, and **Kotlin Flows** for reactive programming.
 
-We would appreciate your feedback on Compose/Web and Kotlin/Wasm in the public Slack channel [#compose-web](https://slack-chats.kotlinlang.org/c/compose-web).
-If you face any issues, please report them on [GitHub](https://github.com/JetBrains/compose-multiplatform/issues).
+### 📦 **Project Structure**  
+Properly organized package structure for separation of concerns, scalability, and easy maintenance.
 
-You can open the web application by running the `:composeApp:wasmJsBrowserDevelopmentRun` Gradle task.
+### 🔄 **Lifecycle + ViewModel**  
+Integrated lifecycle and ViewModel support for managing UI-related data in a lifecycle-conscious way.
+
+### 🌐 **Real API Integration (Crypto Coins)**  
+Integrated with a **live crypto coins API** to demonstrate networking and UI-binding in action.
+
+### 🔌 **Ktor Client**  
+For making **network calls across platforms** using Ktor.
+
+### 🗂️ **Koin Dependency Injection**  
+Lightweight and easy-to-use DI with **Koin** for shared and platform-specific modules.
+
+### 📸 **Coil for Image Loading**  
+Seamless **image loading** with Coil across supported platforms.
+
+### 🔀 **Navigation with Bottom Navigation**  
+Includes a simple and extensible **bottom navigation setup** to handle multiple screens.
+
+### 🧰 **Centralized Library Management**  
+All dependencies managed using **Version Catalogs (`libs.versions.toml`)** for better consistency and maintainability.
+
+---
+
+## 👨‍💻 Who is this for?
+
+This project is ideal for:
+
+- Developers starting a new project with **KMP + CMP**
+- Those who want to avoid setting up boilerplate code
+- Teams looking for a **maintainable, scalable** base architecture
+- Anyone wanting to explore **real-time data handling** using modern Kotlin tools
+
+---
+
+## 🏁 Get Started Fast
+
+You can **clone this repo and start building your app right away** — no setup hassle, just the latest libraries and best practices bundled into one powerful template.
+
+---
