@@ -1,4 +1,4 @@
-package presentation.ui.main.bottomnavigation
+package presentation.ui.navigation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -26,7 +26,7 @@ import utils.bottomNavItems
 import org.jetbrains.compose.resources.painterResource
 
 @Composable
-fun BottomBar() {
+fun MainApplicationController() {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {

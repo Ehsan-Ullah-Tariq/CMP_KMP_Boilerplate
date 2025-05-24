@@ -1,4 +1,4 @@
-package presentation.ui.main.bottomnavigation
+package presentation.ui.navigation
 
 import kmp_boilerplate.composeapp.generated.resources.Res
 import kmp_boilerplate.composeapp.generated.resources.ic_home
@@ -35,5 +35,4 @@ sealed class BottomNavScreenState(
         unSelectedIcon = Res.drawable.ic_settings,
         route = BottomNavRoutes.SETTINGS
     )
-
 }
