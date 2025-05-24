@@ -70,7 +70,8 @@ kotlin {
 
             //Coil
             implementation(libs.coil.compose)
-            implementation(libs.coil.network.ktor3)
+            implementation(libs.coil.compose.network)
+
 
             //Koin
             implementation(libs.koin.core)

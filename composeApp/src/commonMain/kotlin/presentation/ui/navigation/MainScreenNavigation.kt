@@ -1,4 +1,4 @@
-package presentation.ui.main.bottomnavigation
+package presentation.ui.navigation
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,8 +26,6 @@ fun MainScreenNavigation(navController: NavHostController, padding: PaddingValue
         composable(BottomNavScreenState.Favourites.route) {
             LiveScreen()
         }
-
-
 
         composable(BottomNavScreenState.Profile.route) {
             SettingsScreen()

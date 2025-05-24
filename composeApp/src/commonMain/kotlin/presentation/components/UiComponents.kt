@@ -12,17 +12,19 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,12 +32,12 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PaintingStyle.Companion.Stroke
-import androidx.compose.ui.graphics.drawscope.DrawStyle
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -43,10 +45,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import kmp_boilerplate.composeapp.generated.resources.Res
+import kmp_boilerplate.composeapp.generated.resources.font_en_bold
+import kmp_boilerplate.composeapp.generated.resources.font_en_medium
+import kmp_boilerplate.composeapp.generated.resources.font_en_regular
 import kmp_boilerplate.composeapp.generated.resources.ic_main_logo
 import org.jetbrains.compose.resources.DrawableResource
+import org.jetbrains.compose.resources.Font
 import org.jetbrains.compose.resources.painterResource
+import org.koin.compose.getKoin
 import presentation.ui.theme.PrimaryColor
+import presentation.ui.theme.PrimaryTextColor
 
 @Composable
 fun CommonToolbar(rowModifier: Modifier = Modifier, logoModifier: Modifier = Modifier) {
@@ -84,11 +92,13 @@ fun GradientCircularProgressIndicator(
             ),
             label = "RotationAngle"
         )
-
         Box(
             modifier = Modifier
                 .size(100.dp)
-                .background(Color.Gray.copy(alpha = 0.3f), shape = RoundedCornerShape(20.dp)), // Optional dim background
+                .background(
+                    Color.Gray.copy(alpha = 0.3f),
+                    shape = RoundedCornerShape(20.dp)
+                ), // Optional dim background
             contentAlignment = Alignment.Center
         ) {
             Canvas(modifier = modifier.size(size)) {
@@ -110,19 +120,40 @@ fun GradientCircularProgressIndicator(
     }
 }
 
+@Composable
+fun GetCustomFontFamily(fontWeight: FontWeight): FontFamily = when (fontWeight) {
+
+    FontWeight.Light -> {
+        FontFamily(Font(Res.font.font_en_regular))
+    }
+
+    FontWeight.Normal -> {
+        FontFamily(Font(Res.font.font_en_medium))
+    }
+
+    FontWeight.Medium -> {
+        FontFamily(Font(Res.font.font_en_medium))
+    }
+
+    else -> {
+        FontFamily(Font(Res.font.font_en_bold))
+    }
+}
+
 
 @Composable
 fun RememberCachedImagePainter(
     imageUrl: String?,
-    placeholder: DrawableResource = Res.drawable.ic_main_logo,
-    error: DrawableResource = Res.drawable.ic_main_logo
+     placeholder: DrawableResource = Res.drawable.ic_main_logo,
+     errorImage: DrawableResource = Res.drawable.ic_main_logo,
+    modifier: Modifier = Modifier,
+    contentScale: ContentScale = ContentScale.Fit
 ) {
     return AsyncImage(
         model = imageUrl,
         contentDescription = "image",
-        placeholder = painterResource(placeholder),
-        error = painterResource(error),
-        contentScale = ContentScale.Fit,
+        contentScale = contentScale,
+        modifier = modifier
     )
 }
 
@@ -145,25 +176,49 @@ fun RoundedElevatedCard(
 }
 
 
+@Composable
+fun CenteredRow(
+    modifier: Modifier = Modifier,
+    content: @Composable RowScope.() -> Unit
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically,
+        content = content
+    )
+}
+
 
 @Composable
 fun CommonText(
-    value: String,
+    text: String?,
     modifier: Modifier = Modifier,
-    textSize: TextUnit = 12.sp,
-    textStyle: TextStyle = TextStyle(),
-    fontWeight: FontWeight = FontWeight.Normal
+    fontSize: TextUnit = 12.sp,
+    style: TextStyle = TextStyle(),
+    fontWeight: FontWeight = FontWeight.Normal,
+    color: Color = PrimaryTextColor,
+    overflow: TextOverflow = TextOverflow.Ellipsis,
+    maxLines: Int = Int.MAX_VALUE,
+    textAlign: TextAlign = TextAlign.Start,
+    minLines: Int = 1,
+    fontFamily: FontFamily? = null
 ) {
-    Text(
-        text = value,
-        color = Color.Black,
-        fontSize = textSize,
-        fontWeight = fontWeight,
-        modifier = modifier,
-        style = textStyle,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
-    )
+    text?.let {
+        Text(
+            modifier = modifier,
+            text = text,
+            color = color,
+            fontSize = fontSize,
+            fontWeight = fontWeight,
+            style = style,
+            maxLines = maxLines,
+            overflow = overflow,
+            textAlign = textAlign,
+            minLines = minLines,
+            fontFamily = fontFamily ?: GetCustomFontFamily(fontWeight)
+        )
+    }
 }
 
 
