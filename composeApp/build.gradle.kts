@@ -2,6 +2,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSetTree
 import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
 
 plugins {
@@ -9,17 +10,17 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    id("app.cash.sqldelight") version "2.0.2"
     kotlin("plugin.serialization") version "2.1.20"
 }
 
 kotlin {
+    jvmToolchain(17)
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
+        instrumentedTestVariant.sourceSetTree.set(KotlinSourceSetTree.test)
     }
+
+    jvm()
     
     listOf(
         iosX64(),
@@ -38,23 +39,22 @@ kotlin {
 
 
         androidMain.dependencies {
-            implementation(compose.preview)
+            implementation(libs.ui.tooling.preview)
             implementation(libs.androidx.activity.compose)
             implementation(libs.ktor.client.android)
             implementation(libs.koin.android)
-            implementation(libs.android.driver)
         }
 
         commonMain.dependencies {
 
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.materialIconsExtended)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
+            implementation(libs.jetbrains.runtime)
+            implementation(libs.foundation)
+            implementation(libs.material)
+            implementation(libs.material.icons.extended)
+            implementation(libs.material3)
+            implementation(libs.ui)
+            implementation(libs.components.resources)
+            implementation(libs.ui.tooling.preview)
 
 
             implementation(libs.androidx.lifecycle.runtime.compose)
@@ -70,7 +70,7 @@ kotlin {
 
             //Coil
             implementation(libs.coil.compose)
-            implementation(libs.coil.compose.network)
+            implementation(libs.coil.network.ktor3)
 
 
             //Koin
@@ -84,7 +84,6 @@ kotlin {
 
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
-            implementation(libs.native.driver)
         }
     }
 }
@@ -117,7 +116,5 @@ android {
 }
 
 dependencies {
-    debugImplementation(compose.uiTooling)
+    debugImplementation(libs.ui.tooling)
 }
-
-

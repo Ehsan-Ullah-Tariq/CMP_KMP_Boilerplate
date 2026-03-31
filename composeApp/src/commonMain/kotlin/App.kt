@@ -1,7 +1,10 @@
-import androidx.compose.runtime.*
-import org.jetbrains.compose.ui.tooling.preview.Preview
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.tooling.preview.Preview
 import presentation.ui.SplashScreen
-
 import presentation.ui.navigation.MainApplicationController
 import presentation.ui.theme.MyAppTheme
 

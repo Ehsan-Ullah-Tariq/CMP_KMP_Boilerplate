@@ -1,33 +1,50 @@
 [versions]
-agp = "8.6.1"
-android-compileSdk = "35"
+agp = "8.13.2"
+android-compileSdk = "36"
 android-minSdk = "24"
-android-targetSdk = "35"
-androidx-activityCompose = "1.10.1"
-androidx-appcompat = "1.7.0"
+android-targetSdk = "36"
+androidx-activityCompose = "1.13.0"
+androidx-appcompat = "1.7.1"
 androidx-constraintlayout = "2.2.1"
-androidx-core-ktx = "1.15.0"
-androidx-espresso-core = "3.6.1"
-androidx-lifecycle = "2.8.4"
-coilCompose = "3.1.0"
-compose-navigation = "2.8.0-alpha02"
-androidx-material = "1.12.0"
-androidx-test-junit = "1.2.1"
-compose-multiplatform = "1.8.0"
+androidx-core-ktx = "1.18.0"
+androidx-espresso-core = "3.7.0"
+androidx-lifecycle = "2.10.0"
+coil3 = "3.4.0"
+coil2 = "2.7.0"
+componentsResources = "1.10.3"
+compose-navigation = "2.9.2"
+androidx-material = "1.13.0"
+androidx-test-junit = "1.3.0"
+compose-multiplatform = "1.10.3"
+foundation = "1.10.3"
 junit = "4.13.2"
 kamelImageDefault = "1.0.5"
-kotlin = "2.1.10"
-kotlinx-coroutines = "1.10.1"
-kotlinxDatetime = "0.6.2"
-ktorClient = "3.0.1"
+kotlin = "2.3.20"
+kotlinx-coroutines = "1.10.2"
+kotlinxDatetime = "0.7.1"
+ktorClient = "3.4.1"
+material = "1.10.3"
+material3 = "1.9.0"
+materialIconsExtended = "1.7.3"
 multiplatformSettings = "1.3.0"
-androidDriver = "2.0.2"
-koinCore = "4.0.0"
+androidDriver = "2.3.2"
+koinCore = "4.2.0"
+runtimeVersion = "1.10.3"
+uiToolingPreview = "1.10.3"
 
 [libraries]
 android-driver = { module = "app.cash.sqldelight:android-driver", version.ref = "androidDriver" }
-coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
-coil-compose-network = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
+
+coil2 = { module = "io.coil-kt:coil", version.ref = "coil2" }
+coil2-gif = { module = "io.coil-kt:coil-gif", version.ref = "coil2" }
+coil2-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil2" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coil3" }
+coil-compose-core = { module = "io.coil-kt.coil3:coil-compose-core", version.ref = "coil3" }
+coil-network-ktor3 = { module = "io.coil-kt.coil3:coil-network-ktor3", version.ref = "coil3" }
+
+components-resources = { module = "org.jetbrains.compose.components:components-resources", version.ref = "componentsResources" }
+foundation = { module = "org.jetbrains.compose.foundation:foundation", version.ref = "foundation" }
+jetbrains-runtime = { module = "org.jetbrains.compose.runtime:runtime", version.ref = "runtimeVersion" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koinCore" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCore" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version.ref = "koinCore" }
@@ -54,9 +71,15 @@ ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorCli
 ktor-client-darwin = { module = "io.ktor:ktor-client-darwin", version.ref = "ktorClient" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktorClient" }
 ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktorClient" }
+material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
+material = { module = "org.jetbrains.compose.material:material", version.ref = "material" }
+material3 = { module = "org.jetbrains.compose.material3:material3", version.ref = "material3" }
 multiplatform-settings = { module = "com.russhwolf:multiplatform-settings", version.ref = "multiplatformSettings" }
 native-driver = { module = "app.cash.sqldelight:native-driver", version.ref = "androidDriver" }
 sqlite-driver = { module = "app.cash.sqldelight:sqlite-driver", version.ref = "androidDriver" }
+ui = { module = "org.jetbrains.compose.ui:ui", version.ref = "uiToolingPreview" }
+ui-tooling = { module = "org.jetbrains.compose.ui:ui-tooling", version.ref = "uiToolingPreview" }
+ui-tooling-preview = { module = "org.jetbrains.compose.ui:ui-tooling-preview", version.ref = "uiToolingPreview" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

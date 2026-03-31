@@ -2,41 +2,46 @@ package presentation.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import config.AppConfig
 import domain.model.coin.CoinsDomainItem
 import domain.usecase.GetCoinsUseCase
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import utils.ApiResultResource
 import utils.UiStatesResource
 
 class HomeViewModel(private val getCoinsUseCase: GetCoinsUseCase) : ViewModel() {
 
-    private var currentPage = 1
-    private val pageSize = 50
-    private val _homeFeedUiState = MutableStateFlow<UiStatesResource<List<CoinsDomainItem>>>(UiStatesResource.Loading)
-    val homeFeedUiState: StateFlow<UiStatesResource<List<CoinsDomainItem>>> = _homeFeedUiState.stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
-        initialValue = UiStatesResource.Loading
-    )
-    fun fetchHomeData() = viewModelScope.launch {
-        getCoinsUseCase(currentPage, pageSize).collect { result ->
-            when (result) {
-                is ApiResultResource.Error -> {
-                    _homeFeedUiState.value = UiStatesResource.Error(result.message)
-                }
+    private var currentPage = AppConfig.Coins.DEFAULT_PAGE //TODO need to implement pagination in future
+    private val fetchHomeDataTrigger = MutableSharedFlow<Unit>(extraBufferCapacity = 1)
 
-                ApiResultResource.Loading -> {
-                    _homeFeedUiState.value = UiStatesResource.Loading
-                }
-
-                is ApiResultResource.Success -> {
-                    _homeFeedUiState.value = UiStatesResource.Success(result.value)
+    @OptIn(ExperimentalCoroutinesApi::class)
+    val homeFeedUiState: StateFlow<UiStatesResource<List<CoinsDomainItem>>> =
+        fetchHomeDataTrigger
+            .flatMapLatest { getCoinsUseCase(currentPage) }
+            .map { result ->
+                when (result) {
+                    is ApiResultResource.Error -> UiStatesResource.Error(result.message)
+                    ApiResultResource.Loading -> UiStatesResource.Loading
+                    is ApiResultResource.Success -> UiStatesResource.Success(result.value)
                 }
             }
-        }
+            .stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.Eagerly,
+                initialValue = UiStatesResource.Loading
+            )
+
+    init {
+        fetchHomeData()
+    }
+
+    fun fetchHomeData() {
+        fetchHomeDataTrigger.tryEmit(Unit)
     }
 }

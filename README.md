@@ -52,3 +52,17 @@ This project is ideal for:
 You can **clone this repo and start building your app right away** — no setup hassle, just the latest libraries and best practices bundled into one powerful template.
 
 ---
+
+## ⚙️ Starter Customization
+
+- API and paging defaults are centralized in:
+  - `composeApp/src/commonMain/kotlin/config/AppConfig.kt`
+- Base URL and endpoint constants are in:
+  - `composeApp/src/commonMain/kotlin/data/remote/api/NetworkConfig.kt`
+- Ktor client setup is in:
+  - `composeApp/src/commonMain/kotlin/data/remote/api/KtorHttpClient.kt`
+
+## 📘 Add New Feature Guide
+
+- Follow:
+  - `docs/ADD_NEW_FEATURE.md`

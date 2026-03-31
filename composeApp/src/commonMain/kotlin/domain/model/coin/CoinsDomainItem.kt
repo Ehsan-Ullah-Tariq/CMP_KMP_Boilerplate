@@ -1,10 +1,7 @@
 package domain.model.coin
 
 
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.Stable
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
 
 
 @Stable

@@ -4,13 +4,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,14 +25,11 @@ import utils.UiStatesResource
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = koinViewModel()) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().statusBarsPadding(),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        CommonToolbar(logoModifier = Modifier.padding(start = 10.dp, top = 5.dp))
+        CommonToolbar(logoModifier = Modifier.padding(start = 10.dp))
         val homeData by viewModel.homeFeedUiState.collectAsStateWithLifecycle()
-        LaunchedEffect(Unit) {
-            if (homeData !is UiStatesResource.Success) viewModel.fetchHomeData()
-        }
         SetCoinList(homeData)
     }
 }
@@ -46,23 +43,17 @@ private fun SetCoinList(homeData: UiStatesResource<List<CoinsDomainItem>>) {
     ) {
         when (homeData) {
             is UiStatesResource.Loading -> {
-                GradientCircularProgressIndicator(
-                    isLoading = true
-                )
+                GradientCircularProgressIndicator(isLoading = true)
             }
 
             is UiStatesResource.Success -> {
-                GradientCircularProgressIndicator(
-                    isLoading = false
-                )
+                GradientCircularProgressIndicator(isLoading = false)
                 val response = homeData.value
                 CoinListUi(response)
             }
 
             is UiStatesResource.Error -> {
-                GradientCircularProgressIndicator(
-                    isLoading = false
-                )
+                GradientCircularProgressIndicator(isLoading = false)
                 Text("Error: ${homeData.message}")
             }
         }
@@ -84,7 +75,5 @@ fun CoinListUi(dataList: List<CoinsDomainItem>) {
         }
     }
 }
-
-
 
 
